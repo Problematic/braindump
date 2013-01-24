@@ -12,8 +12,9 @@ setup(
     author=braindump.__author__,
     author_email='djstobbe@gmail.com',
     packages=find_packages(),
+    package_data={'': ['LICENSE-MIT']},
     install_requires=['docopt>=0.5.0'],
-    license=open('LICENSE-MIT').read(),
+    license='MIT',
     url='https://github.com/Problematic/braindump',
     entry_points={
         'console_scripts': [
