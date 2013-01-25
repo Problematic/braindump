@@ -13,7 +13,8 @@ def quick_add_message(file, message):
 
 
 def launch_editor(editor, file, wait=True):
+    shell_string = '{0} "{1}"'.format(editor, file)
     if wait is True:
-        call(editor + ' ' + file, shell=True)
+        call(shell_string, shell=True)
     else:
-        Popen([editor + ' ' + file], shell=True)
+        Popen([shell_string], shell=True)
