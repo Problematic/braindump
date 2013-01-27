@@ -1,3 +1,4 @@
 braindump.egg-info/
 *.pyc
 env/
+dist/
