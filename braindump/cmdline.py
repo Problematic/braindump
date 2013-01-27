@@ -2,9 +2,11 @@
 braindump - record what's on your mind
 
 Usage:
+    braindump ls
     braindump [options] [TOPIC]
 
 Arguments:
+    ls                              Output a list of topic files
     TOPIC                           Subject to braindump on, determines filename [default: braindump]
 
 Options:
@@ -53,7 +55,13 @@ def main():
     dumper = FSDumper(settings)
     topic = arguments['TOPIC'] if arguments['TOPIC'] is not None else settings['default_topic']
 
-    if arguments['-m'] is not None:
+    if arguments['ls'] is True:
+        topics = dumper.list_topics()
+        output = '{0} braindump topics:'.format(len(topics))
+        for topic in topics:
+            output += '\n- {0}'.format(topic)
+        print output
+    elif arguments['-m'] is not None:
         dumper.quick_add(topic, arguments['-m'])
     else:
         dumper.edit_topic(topic)

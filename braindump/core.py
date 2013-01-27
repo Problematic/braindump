@@ -3,6 +3,7 @@ from __future__ import print_function
 import sys
 import os
 from subprocess import call, Popen
+from glob import glob
 
 
 class FSDumper(object):
@@ -22,6 +23,13 @@ class FSDumper(object):
 
     def edit_topic(self, topic):
         self._launch_editor(self.settings['editor'], self._get_topic_filename(topic))
+
+    def list_topics(self):
+        topic_files = glob('{0}/*{1}'.format(self.settings['braindump_dir'], self.settings['file_ext']))
+        topics = []
+        for topic in topic_files:
+            topics.append(os.path.splitext(os.path.basename(topic))[0])
+        return topics
 
     def _get_topic_filename(self, topic, full=True):
         filename = topic + self.settings['file_ext']
