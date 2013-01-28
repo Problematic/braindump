@@ -4,11 +4,13 @@ braindump - record what's on your mind
 
 from setuptools import setup, find_packages
 import braindump
+from braindump import cmdline
 
 setup(
     name='braindump',
     version=braindump.__version__,
     description=__doc__,
+    long_description=cmdline.__doc__,
     author=braindump.__author__,
     author_email='djstobbe@gmail.com',
     packages=find_packages(),

@@ -7,9 +7,11 @@ $ braindump -h
 braindump - record what's on your mind
 
 Usage:
-    braindump [options] [TOPIC]
+    braindump ls
+    braindump [options] [--] [TOPIC]
 
 Arguments:
+    ls                              Output a list of topic files
     TOPIC                           Subject to braindump on, determines filename [default: braindump]
 
 Options:
