@@ -23,7 +23,7 @@ import sys
 from docopt import docopt
 
 from braindump import __version__
-from braindump.core import FSDumper
+from braindump.core import FSDumper, BraindumpException
 
 
 def load_settings(settings_file=None):
@@ -52,7 +52,10 @@ def main():
     arguments = docopt(__doc__, version=__version__)
     settings = load_settings(arguments['--settings'])
 
-    dumper = FSDumper(settings)
+    try:
+        dumper = FSDumper(settings)
+    except BraindumpException as ex:
+        sys.exit(ex.message)
     topic = arguments['TOPIC'] if arguments['TOPIC'] is not None else settings['default_topic']
 
     if arguments['ls'] is True:
@@ -62,6 +65,7 @@ def main():
             output += '\n- {0}'.format(topic)
         print output
     elif arguments['-m'] is not None:
-        dumper.quick_add(topic, arguments['-m'])
+        if not dumper.quick_add(topic, arguments['-m']):
+            sys.exit('Unable to append message to dumpfile \'{0}\''.format(topic))
     else:
         dumper.edit_topic(topic)

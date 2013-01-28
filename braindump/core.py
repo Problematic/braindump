@@ -1,28 +1,46 @@
 from __future__ import print_function
 
-import sys
 import os
 from subprocess import call, Popen
 from glob import glob
 
 
-class FSDumper(object):
+class BraindumpException(Exception):
+    pass
+
+
+class Dumper(object):
+    def __init__(self, settings):
+        self.settings = settings
+
+    def quick_add(self, topic, message):
+        raise NotImplementedError()
+
+    def edit_topic(self, topic):
+        raise NotImplementedError()
+
+    def list_topics(self):
+        raise NotImplementedError()
+
+
+class FSDumper(Dumper):
     def __init__(self, settings):
         if not os.access(settings['braindump_dir'], os.W_OK | os.X_OK):
-            sys.exit('braindump: couldn\'t access braindump dir \'{0}\'. Does it exist/is it writable?'.format(settings['braindump_dir']))
+            raise BraindumpException('couldn\'t access braindump dir \'{0}\'. Does it exist/is it writable?'.format(settings['braindump_dir']))
 
-        self.settings = settings
+        super(FSDumper, self).__init__(settings)
 
     def quick_add(self, topic, message):
         filename = self._get_topic_filename(topic)
         try:
             with open(filename, mode='a') as f:
                 print(message, file=f)
+            return True
         except IOError:
-            sys.exit('Unable to append message to dumpfile \'{0}\''.format(filename))
+            return False
 
     def edit_topic(self, topic):
-        self._launch_editor(self.settings['editor'], self._get_topic_filename(topic))
+        return self._launch_editor(self.settings['editor'], self._get_topic_filename(topic))
 
     def list_topics(self):
         topic_files = glob('{0}/*{1}'.format(self.settings['braindump_dir'], self.settings['file_ext']))
@@ -46,3 +64,4 @@ class FSDumper(object):
             return exit_code
         else:
             Popen([shell_string], shell=True)
+            return 0
