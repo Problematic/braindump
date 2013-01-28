@@ -3,7 +3,7 @@ braindump - record what's on your mind
 
 Usage:
     braindump ls
-    braindump [options] [TOPIC]
+    braindump [options] [--] [TOPIC]
 
 Arguments:
     ls                              Output a list of topic files
