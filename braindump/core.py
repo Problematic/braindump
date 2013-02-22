@@ -3,6 +3,7 @@ from __future__ import print_function
 import os
 from subprocess import call, Popen
 from glob import glob
+import errno
 
 
 class BraindumpException(Exception):
@@ -48,6 +49,17 @@ class FSDumper(Dumper):
         for topic in topic_files:
             topics.append(os.path.splitext(os.path.basename(topic))[0])
         return topics
+
+    def archive_topic(self, topic):
+        filename = self._get_topic_filename(topic)
+        archive_dir = self.settings['braindump_dir'] + '/archive'
+        try:
+            os.makedirs(archive_dir)
+        except OSError as ex:
+            if ex.errno != errno.EEXIST:
+                raise
+        os.rename(filename, archive_dir + '/' + self._get_topic_filename(topic, False))
+        return True
 
     def _get_topic_filename(self, topic, full=True):
         filename = topic + self.settings['file_ext']

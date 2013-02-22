@@ -15,7 +15,7 @@ setup(
     author_email='djstobbe@gmail.com',
     packages=find_packages(),
     package_data={'': ['LICENSE-MIT']},
-    install_requires=['docopt>=0.5.0'],
+    install_requires=['docopt>=0.6.1'],
     license='MIT',
     url='https://github.com/Problematic/braindump',
     entry_points={
