@@ -30,7 +30,9 @@ def load_settings(settings_file=None):
         'default_topic': 'braindump',
         'editor': os.environ.get('EDITOR', 'vi'),
         'file_ext': '.txt',
-        'dumper': 'braindump.core.FSDumper',
+        'dumper': 'braindump.dumpers.FSDumper',
+        'dumper_args': [],
+        'dumper_kwargs': {},
     }
 
     try:
@@ -59,7 +61,7 @@ def main():
     Dumper = get_dumper(settings['dumper'])
 
     try:
-        dumper = Dumper(settings)
+        dumper = Dumper(settings, *settings['dumper_args'], **settings['dumper_kwargs'])
     except BraindumpException as ex:
         sys.exit(ex.message)
     topic = arguments['TOPIC'] if arguments['TOPIC'] is not None else settings['default_topic']
