@@ -30,7 +30,7 @@ def load_settings(settings_file=None):
         'default_topic': 'braindump',
         'editor': os.environ.get('EDITOR', 'vi'),
         'file_ext': '.txt',
-        'dumper': 'braindump.dumpers.FSDumper',
+        'dumper': 'braindump.dumpers:FSDumper',
         'dumper_args': [],
         'dumper_kwargs': {},
     }
@@ -50,7 +50,7 @@ def load_settings(settings_file=None):
 
 
 def get_dumper(dumper):
-    parts = dumper.rsplit('.', 1)
+    parts = dumper.rsplit(':', 1)
     _tmp = import_module(parts[0])
     return getattr(_tmp, parts[1])
 
