@@ -59,7 +59,7 @@ def main():
     Dumper = get_dumper(settings['dumper'])
 
     try:
-        dumper = Dumper(settings, *settings['dumper_args'], **settings['dumper_kwargs'])
+        dumper = Dumper(settings)
     except BraindumpException as ex:
         sys.exit(ex.message)
     topic = arguments['TOPIC'] if arguments['TOPIC'] is not None else settings['default_topic']
