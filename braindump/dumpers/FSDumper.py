@@ -9,11 +9,11 @@ from braindump.core import Dumper, BraindumpException
 
 
 class FSDumper(Dumper):
-    def __init__(self, settings, *args, **kwargs):
+    def __init__(self, settings):
         if not os.access(settings['braindump_dir'], os.W_OK | os.X_OK):
             raise BraindumpException('couldn\'t access braindump dir \'{0}\'. Does it exist/is it writable?'.format(settings['braindump_dir']))
 
-        super(FSDumper, self).__init__(settings, *args, **kwargs)
+        super(FSDumper, self).__init__(settings)
 
     def quick_add(self, topic, message):
         filename = self._get_topic_filename(topic)

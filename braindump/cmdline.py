@@ -31,8 +31,6 @@ def load_settings(settings_file=None):
         'editor': os.environ.get('EDITOR', 'vi'),
         'file_ext': '.txt',
         'dumper': 'braindump.dumpers:FSDumper',
-        'dumper_args': [],
-        'dumper_kwargs': {},
     }
 
     try:

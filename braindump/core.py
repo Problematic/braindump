@@ -3,7 +3,7 @@ class BraindumpException(Exception):
 
 
 class Dumper(object):
-    def __init__(self, settings, *args, **kwargs):
+    def __init__(self, settings):
         self.settings = settings
 
     def quick_add(self, topic, message):
