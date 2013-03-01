@@ -17,3 +17,16 @@ class Dumper(object):
 
     def archive_topic(self, topic):
         raise NotImplementedError()
+
+
+class Usage(object):
+    usage = '[options] [--] [TOPIC]'
+    options = [
+        ('-v --version', 'Show version information'),
+        ('-h --help', 'Show this help screen'),
+        ('-s --settings SETTINGS_FILE', 'Settings file to load'),
+    ]
+    priority = 100
+
+    def __init__(self, arguments):
+        self.arguments = arguments
