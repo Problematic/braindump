@@ -53,7 +53,7 @@ class FSDumper(Dumper):
 
         return filename
 
-    def _launch_editor(self, editor, filename, wait=True):
+    def _launch_editor(self, editor, filename, wait=False):
         shell_string = '{0} "{1}"'.format(editor, filename)
         if wait is True:
             exit_code = call(shell_string, shell=True)
