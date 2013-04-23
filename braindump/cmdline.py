@@ -11,6 +11,7 @@ Options:
     -h --help                       Show this help screen
     -s --settings SETTINGS_FILE     Settings file to load
     -m MESSAGE                      Add a message without opening your editor
+    -f                              Output path to braindump topic file
 """
 
 import json
@@ -75,5 +76,7 @@ def main():
     elif arguments['-m'] is not None:
         if not dumper.quick_add(topic, arguments['-m']):
             sys.exit('Unable to append message to dumpfile \'{0}\''.format(topic))
+    elif arguments['-f'] is True:
+        print dumper._get_topic_filename(topic)  # todo: let's not do this. plugin system, maybe?
     else:
         dumper.edit_topic(topic)
