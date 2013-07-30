@@ -77,6 +77,8 @@ def main():
         if not dumper.quick_add(topic, arguments['-m']):
             sys.exit('Unable to append message to dumpfile \'{0}\''.format(topic))
     elif arguments['-f'] is True:
+        if not topic in dumper.list_topics():
+            sys.exit("Topic '{0}' doesn't exist".format(topic))
         print dumper._get_topic_filename(topic)  # todo: let's not do this. plugin system, maybe?
     else:
         dumper.edit_topic(topic)
